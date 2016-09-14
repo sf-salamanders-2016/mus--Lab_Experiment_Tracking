@@ -1,7 +1,11 @@
 require 'test_helper'
 
 class ExperimentTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+  describe "experiment" do
+    it "if approved, has one project admin" do
+
+    end
+  end
+
+
 end
