@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  project_admin_id: 1
+  approved?: false
+  title: MyString
+  hypothesis: MyText
+  summary: MyText
+  body: MyText
+
+two:
+  project_admin_id: 1
+  approved?: false
+  title: MyString
+  hypothesis: MyText
+  summary: MyText
+  body: MyText
