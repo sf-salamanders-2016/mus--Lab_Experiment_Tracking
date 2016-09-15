@@ -12,6 +12,9 @@
 
 ActiveRecord::Schema.define(version: 20160915170040) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "comments", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "observation_id"
@@ -34,8 +37,8 @@ ActiveRecord::Schema.define(version: 20160915170040) do
   create_table "experiments_users", id: false, force: :cascade do |t|
     t.integer "user_id",       null: false
     t.integer "experiment_id", null: false
-    t.index ["experiment_id", "user_id"], name: "index_experiments_users_on_experiment_id_and_user_id"
-    t.index ["user_id", "experiment_id"], name: "index_experiments_users_on_user_id_and_experiment_id"
+    t.index ["experiment_id", "user_id"], name: "index_experiments_users_on_experiment_id_and_user_id", using: :btree
+    t.index ["user_id", "experiment_id"], name: "index_experiments_users_on_user_id_and_experiment_id", using: :btree
   end
 
   create_table "observations", force: :cascade do |t|
@@ -65,8 +68,8 @@ ActiveRecord::Schema.define(version: 20160915170040) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
-    t.index ["email"], name: "index_users_on_email", unique: true
-    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+    t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
 
 end
