@@ -53,6 +53,13 @@ RSpec.describe User, type: :model do
         expect(comment.class).to eq(Comment)
       end
     end
+
+    it "project admin has one experiment" do
+      @experiment = Experiment.create(project_admin_id: 3)
+      @project_admin = User.create(id: 3, username: 'John Doe')
+
+      expect(@experiment.project_admin_id).to eq(@project_admin.id)
+    end
   end
 
 
