@@ -1,6 +1,13 @@
 Rails.application.routes.draw do
-  get 'user/index'
 
-  devise_for :users
-  root 'experiments#index'
+  get 'comments/index'
+  get 'users/index'
+  get 'observation/index'
+  get 'experiments/index'
+
+  resources :users
+  resources :experiments
+  resources :observations
+  resources :comments
+
 end
