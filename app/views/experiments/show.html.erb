@@ -4,6 +4,16 @@
   <%= user.username %>
 <% end %>
 
+<br>
+<% if current_user.global_admin? == true && @experiment.approved? != true %>
+  <%= form_for @experiment, url: user_experiment_approval_path(current_user, @experiment) do |f| %>
+  <%= f.hidden_field :approved?, :value => true %>
+  <%= f.submit value: "Approve experiment" %>
+<% end %>
+
+<% end %>
+<br>
+
 <ul>
   <li>
     Hypothesis:
