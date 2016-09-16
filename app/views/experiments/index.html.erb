@@ -1,14 +1,41 @@
 <% if current_user %>
-  <h1>Home page for experiment</h1>
+  <h1>Experiments</h1>
 
+  <h2>Projects you are involved in</h2>
   <% @experiments.each do |experiment| %>
-
+    <% experiment.users.each do |user| %>
+      <% if user.id == current_user.id && experiment.approved? == true  %>
         <li>
         <%= link_to experiment.title, user_experiment_path(current_user, experiment) %>
         || Project Administrator: <%= experiment.project_admin.username %>
         </li>
-
+      <% end %>
+    <% end %>
   <% end %>
+
+  <h2>Projects you can apply to </h2>
+  <% @experiments.each do |experiment| %>
+  <% experiment.users.each do |user| %>
+    <% if user.id != current_user.id && experiment.approved? == true %>
+      <li>
+      <%= link_to experiment.title, user_experiment_path(current_user, experiment) %>
+      || Project Administrator: <%= experiment.project_admin.username %>
+      </li>
+    <% end %>
+  <% end %>
+<% end %>
+
+<% if current_user.global_admin? == true %>
+  <h2>Proposals</h2>
+  <% @experiments.each do |experiment| %>
+    <% if experiment.approved? != true %>
+    <li>
+      <%= experiment.title %>
+    </li>
+    <% end %>
+  <% end %>
+<% end %>
+
 
   <%= link_to "Propose Experiment", new_user_experiment_path(current_user) %>
 
