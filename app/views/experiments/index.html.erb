@@ -1,1 +1,9 @@
-<h1>Home page</h1>
+<h1>Home page for experiment</h1>
+
+<% @experiments.each do |experiment| %>
+  <li>
+    <%= link_to experiment.title, experiment_path(experiment) %>
+  </li>
+<% end %>
+<br>
+<%= link_to "Create new experiment", new_experiment_path %>
