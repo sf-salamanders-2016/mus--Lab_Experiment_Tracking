@@ -1,8 +1,11 @@
+<div style="text-align: center">
 <h1><%= @experiment.title %></h1>
 <% @experiment.users.each do |user| %>
   Current staff working on experiment:
   <%= user.username %>
 <% end %>
+
+<ul style="list-style: none;">
 
 <br>
 <% if current_user.global_admin? == true && @experiment.approved? != true %>
@@ -90,5 +93,5 @@ Observations
 
 <%= link_to "Go back", user_experiments_path(current_user) %>
 
-
+</div>
 

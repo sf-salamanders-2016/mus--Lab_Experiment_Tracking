@@ -1,7 +1,4 @@
 require 'faker'
-# require 'harry_potter_faker'
-
-# HPFaker = HarryPotterFaker.new()
 
 User.delete_all
 Experiment.delete_all
@@ -30,6 +27,17 @@ user = User.order("RANDOM()").first
 30.times do
   Experiment.create(
     approved?: true,
+    title: Faker::Lorem.sentence,
+    hypothesis: Faker::Lorem.sentence,
+    summary: Faker::Lorem.sentence,
+    body: Faker::Lorem.sentence,
+    project_admin_id: user.id
+    )
+end
+
+10.times do
+  Experiment.create(
+    approved?: false,
     title: Faker::Lorem.sentence,
     hypothesis: Faker::Lorem.sentence,
     summary: Faker::Lorem.sentence,
