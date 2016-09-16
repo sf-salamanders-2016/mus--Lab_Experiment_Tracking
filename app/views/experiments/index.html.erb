@@ -3,7 +3,7 @@
 
   <% @experiments.each do |experiment| %>
     <% experiment.users.each do |user| %>
-      <% if experiment.users.find(user.id) %>
+      <% if experiment.users.find(current_user.id) %>
         <li>
         <%= link_to experiment.title, user_experiment_path(current_user, experiment) %>
         || Project Administrator: <%= experiment.project_admin.username %>
