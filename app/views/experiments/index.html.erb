@@ -4,7 +4,7 @@
   <h2>Projects you are involved in</h2>
   <% @experiments.each do |experiment| %>
     <% experiment.users.each do |user| %>
-      <% if user.id == current_user.id  %>
+      <% if user.id == current_user.id && experiment.approved? == true  %>
         <li>
         <%= link_to experiment.title, user_experiment_path(current_user, experiment) %>
         || Project Administrator: <%= experiment.project_admin.username %>
@@ -16,7 +16,7 @@
   <h2>Projects you can apply to </h2>
   <% @experiments.each do |experiment| %>
   <% experiment.users.each do |user| %>
-    <% if user.id != current_user.id %>
+    <% if user.id != current_user.id && experiment.approved? == true %>
       <li>
       <%= link_to experiment.title, user_experiment_path(current_user, experiment) %>
       || Project Administrator: <%= experiment.project_admin.username %>
