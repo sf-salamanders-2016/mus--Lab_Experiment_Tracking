@@ -25,6 +25,12 @@ class ObservationsController < ApplicationController
     end
   end
 
+  def update
+    @observation = Observation.find(params[:id])
+    @observation.update_attributes(observation_params)
+    redirect_to user_experiment_path(current_user, @experiment)
+  end
+
   def destroy
     observation = Observation.find(params[:id])
     observation.destroy
