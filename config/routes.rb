@@ -11,9 +11,11 @@ Rails.application.routes.draw do
 
   resources :users do
     resources :experiments do
-      resources :observations, except: [:index]
+        get 'applications', to: 'experiments#application'
+        resources :observations, except: [:index]
     end
   end
+
   # resources :experiments
   # resources :observations
   # resources :comments

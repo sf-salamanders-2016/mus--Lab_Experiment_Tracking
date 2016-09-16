@@ -24,6 +24,12 @@ class ExperimentsController < ApplicationController
     @experiment = Experiment.find(params[:id])
   end
 
+  ## add post route for application
+
+  def application
+
+  end
+
 
   private
 
