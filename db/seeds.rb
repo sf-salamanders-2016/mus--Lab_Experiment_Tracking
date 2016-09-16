@@ -4,10 +4,10 @@ require 'faker'
 # HPFaker = HarryPotterFaker.new()
 
 User.delete_all
+# creating admin all
 Experiment.delete_all
 Observation.delete_all
-
-# creating admin account
+# account
 User.create(
     username: 'stewart',
     email: 'stewart@stewart.com',
@@ -30,6 +30,17 @@ user = User.order("RANDOM()").first
 30.times do
   Experiment.create(
     approved?: true,
+    title: Faker::Lorem.sentence,
+    hypothesis: Faker::Lorem.sentence,
+    summary: Faker::Lorem.sentence,
+    body: Faker::Lorem.sentence,
+    project_admin_id: user.id
+    )
+end
+
+30.times do
+  Experiment.create(
+    approved?: false,
     title: Faker::Lorem.sentence,
     hypothesis: Faker::Lorem.sentence,
     summary: Faker::Lorem.sentence,
