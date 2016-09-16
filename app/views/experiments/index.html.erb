@@ -1,52 +1,73 @@
 <% if current_user %>
   <h1>Experiments</h1>
-
-  <h2>Projects you are involved in</h2>
-  <% @experiments.each do |experiment| %>
-    <% experiment.users.each do |user| %>
-      <% if user.id == current_user.id && experiment.approved? == true  %>
-        <li>
-        <%= link_to experiment.title, user_experiment_path(current_user, experiment) %>
-        || Project Administrator: <%= experiment.project_admin.username %>
-        </li>
-      <% end %>
-    <% end %>
-  <% end %>
-
-  <h2>Projects you can apply to </h2>
-  <% @experiments.each do |experiment| %>
-  <% experiment.users.each do |user| %>
-    <% if user.id != current_user.id && experiment.approved? == true %>
-      <li>
-      <%= link_to experiment.title, user_experiment_path(current_user, experiment) %>
-      || Project Administrator: <%= experiment.project_admin.username %>
-      </li>
-    <% end %>
-  <% end %>
-<% end %>
-
-<% if current_user.global_admin? == true %>
-  <h2>Proposals</h2>
-  <% @experiments.each do |experiment| %>
-    <% if experiment.approved? != true %>
-      <li>
-        <%= link_to experiment.title, user_experiment_path(current_user, experiment) %>
-        || Project Administrator: <%= experiment.project_admin.username %>
-      </li>
-    <% end %>
-  <% end %>
-<% end %>
-
-
   <%= link_to "Propose Experiment", new_user_experiment_path(current_user) %>
-
-
-
   <% if user_signed_in? %>
     <li>
       <%= link_to('Logout', destroy_user_session_path, :method => :delete) %>
     </li>
   <% end %>
+
+<div class="bs-example bs-example-tabs" data-example-id="togglable-tabs"> 
+  <ul class="nav nav-tabs" id="myTabs" role="tablist"> 
+    <li role="presentation" class="active">
+      <a href="#home" id="home-tab" role="tab" data-toggle="tab" aria-controls="home" aria-expanded="true">Current Projects</a>
+    </li> 
+    <li role="presentation" class="">
+      <a href="#profile" role="tab" id="profile-tab" data-toggle="tab" aria-controls="profile" aria-expanded="false">Open Projects</a>
+    </li>
+    <li role="presentation" class="">
+      <a href="#proposals" role="tab" id="proposals-tab" data-toggle="tab" aria-controls="proposals" aria-expanded="false">Proposals</a>
+    </li>
+  </ul> 
+    <div class="tab-content" id="myTabContent"> 
+      <div class="tab-pane fade active in" role="tabpanel" id="home" aria-labelledby="home-tab"> 
+        <p>
+          <h2>Projects you are involved in</h2>
+          <% @experiments.each do |experiment| %>
+            <% experiment.users.each do |user| %>
+              <% if user.id == current_user.id && experiment.approved? == true  %>
+                <li>
+                  <%= link_to experiment.title, user_experiment_path(current_user, experiment) %>
+                  || Project Administrator: <%= experiment.project_admin.username %>
+                </li>
+              <% end %>
+            <% end %>
+          <% end %>
+        </p> 
+      </div> 
+      <div class="tab-pane fade" role="tabpanel" id="profile" aria-labelledby="profile-tab"> 
+        <p>
+          <h2>Projects you can apply to </h2>
+          <% @experiments.each do |experiment| %>
+            <% experiment.users.each do |user| %>
+              <% if user.id != current_user.id && experiment.approved? == true %>
+                <li>
+                  <%= link_to experiment.title, user_experiment_path(current_user, experiment) %>
+                  || Project Administrator: <%= experiment.project_admin.username %>
+                </li>
+              <% end %>
+            <% end %>
+          <% end %>
+        </p> 
+      </div> 
+      <div class="tab-pane fade" role="tabpanel" id="proposals" aria-labelledby="proposals-tab"> 
+        <p>
+          <% if current_user.global_admin? == true %>
+            <h2>Proposals</h2>
+            <%= link_to "Propose Experiment", new_user_experiment_path(current_user) %>
+              <% @experiments.each do |experiment| %>
+                <% if experiment.approved? != true %>
+                  <li>
+                    <%= experiment.title %>
+                  </li>
+                <% end %>
+              <% end %>
+            <% end %>
+        </p> 
+      </div>   
+    </div> 
+</div>
+
 
 <% else %>
   <%= link_to "Login", new_user_session_path %>
