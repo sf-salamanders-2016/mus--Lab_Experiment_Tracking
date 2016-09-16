@@ -1,9 +1,8 @@
-<h1>Create a new experiment</h1>
+<h1>Create an experiment</h1>
 
-<%= link_to "Experiments", experiments_path %>
 
 <%= form_for @experiment, url: {action: "create"} do |f| %>
-  <%= f.text_field :project_admin_id %>
+  <%= f.hidden_field :project_admin_id, :value => current_user.id %>
   <%= f.label :title %>
   <%= f.text_field :title %>
   <br>
@@ -14,8 +13,7 @@
   <%= f.text_field :summary %>
   <br>
   <%= f.label :body %>
-  <%= f.text_field :body %>
+  <%= f.text_area :body %>
   <br>
-  <%= f.submit :submit %>
+  <%= f.submit %>
 <% end %>
-

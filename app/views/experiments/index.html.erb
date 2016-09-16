@@ -1,9 +1,23 @@
-<h1>Home page for experiment</h1>
+<% if current_user %>
+  <h1>Home page for experiment</h1>
 
-<% @experiments.each do |experiment| %>
-  <li>
-    <%= link_to experiment.title, experiment_path(experiment) %>
-  </li>
+  <% @experiments.each do |experiment| %>
+      <li>
+        <%= link_to experiment.title, user_experiment_path(current_user, experiment) %>
+        || Project Administrator: <%= experiment.project_admin.username %>
+      </li>
+  <% end %>
+
+
+  <%= link_to "Propose Experiment", new_user_experiment_path(current_user) %>
+
+  <% if user_signed_in? %>
+    <li>
+      <%= link_to('Logout', destroy_user_session_path, :method => :delete) %>
+    </li>
+  <% end %>
+
+<% else %>
+  <%= link_to "Login", new_user_session_path %>
 <% end %>
-<br>
-<%= link_to "Create new experiment", new_experiment_path %>
+

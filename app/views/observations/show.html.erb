@@ -1,1 +1,3 @@
-<p>Yaii new observation created</p>
+<h1><%= @observation.text %></h1>
+
+<%= link_to "Back", user_experiment_path(current_user, @experiment) %>

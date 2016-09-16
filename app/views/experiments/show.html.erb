@@ -1,7 +1,32 @@
-<h1>Show page for <%= @experiment.title %></h1>
-
-<li>Project Admin: <%= @experiment.project_admin.username %></li>
+<h1><%= @experiment.title %></h1>
 
 
+<ul>
+  <li>
+    Hypothesis:
+    <%= @experiment.hypothesis %>
+  </li>
+  <li>
+    Summary:
+    <%= @experiment.summary %>
+  </li>
+  <li>
+    Body:
+    <%= @experiment.body %>
+  </li>
+</ul>
 
-<%= link_to "Experiments", experiments_path %>
+<%= link_to "Write Observation", new_user_experiment_observation_path(current_user,@experiment) %>
+<br>
+<br>
+
+Observations
+<br>
+<br>
+<% @experiment.observations.each do |observation| %>
+  <li>
+    <%= link_to observation.title, user_experiment_observation_path(current_user, @experiment, observation) %>
+  </li>
+<% end %>
+
+<%= link_to "Go back", user_experiments_path(current_user) %>

@@ -1,4 +1,6 @@
-<%= form_for :observation, url: observations_path  do |f| %>
+Enter Observation for <%= @experiment.title %>
+<%= form_for @observation, url: {action: "create"} do |f| %>
+  <%= f.hidden_field :user_id, :value => current_user.id %>
   <p>
     <%= f.label :title %><br>
     <%= f.text_field :title %>
