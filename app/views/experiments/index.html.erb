@@ -1,5 +1,5 @@
 <% if current_user %>
-  <h1>Home page for experiment</h1>
+  <h1>Experiments</h1>
 
   <h2>Projects you are involved in</h2>
   <% @experiments.each do |experiment| %>
@@ -21,6 +21,17 @@
       <%= link_to experiment.title, user_experiment_path(current_user, experiment) %>
       || Project Administrator: <%= experiment.project_admin.username %>
       </li>
+    <% end %>
+  <% end %>
+<% end %>
+
+<% if current_user.global_admin? == true %>
+  <h2>Proposals</h2>
+  <% @experiments.each do |experiment| %>
+    <% if experiment.approved? != true %>
+    <li>
+      <%= experiment.title %>
+    </li>
     <% end %>
   <% end %>
 <% end %>
