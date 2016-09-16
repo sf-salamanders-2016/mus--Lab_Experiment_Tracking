@@ -1,5 +1,6 @@
 class User < ApplicationRecord
-  has_and_belongs_to_many :experiments
+  has_many :teams
+  has_many :experiments, :through => :teams
 
   has_one :experiment, foreign_key: :project_admin_id, class_name: "User"
   has_many :comments
