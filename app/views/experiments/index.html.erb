@@ -29,9 +29,10 @@
   <h2>Proposals</h2>
   <% @experiments.each do |experiment| %>
     <% if experiment.approved? != true %>
-    <li>
-      <%= experiment.title %>
-    </li>
+      <li>
+        <%= link_to experiment.title, user_experiment_path(current_user, experiment) %>
+        || Project Administrator: <%= experiment.project_admin.username %>
+      </li>
     <% end %>
   <% end %>
 <% end %>
