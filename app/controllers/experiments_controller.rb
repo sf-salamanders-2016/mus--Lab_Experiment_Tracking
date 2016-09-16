@@ -27,7 +27,7 @@ class ExperimentsController < ApplicationController
   ## add post route for application
 
   def application
-
+    @experiment = Experiment.find(params[:experiment_id])
   end
 
 

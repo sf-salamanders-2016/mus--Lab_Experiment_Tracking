@@ -19,10 +19,13 @@
   </li>
 </ul>
 
-<% if @experiment.users.find(current_user.id) %>
-  <%= link_to "Write Observation", new_user_experiment_observation_path(current_user,@experiment) %>
-<% else %>
-  <%= link_to "Apply to work on experiment", user_experiment_applications_path(current_user, @experiment) %>
+
+<% @experiment.users.each do |user| %>
+  <% if user.id == current_user.id %>
+    <%= link_to "Write Observation", new_user_experiment_observation_path(current_user,@experiment) %>
+  <% else %>
+    <%= link_to "Apply to work on experiment", user_experiment_applications_path(current_user, @experiment) %>
+  <% end %>
 <% end %>
 <br>
 <% if @experiment.project_admin == current_user %>
