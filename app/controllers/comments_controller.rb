@@ -12,10 +12,7 @@ class CommentsController < ApplicationController
     @experiment = current_user.experiments.find(params[:experiment_id])
     @observation = @experiment.observations.find(params[:observation_id])
     @comment = @observation.comments.new(comment_params)
-    p "***********"
-    p @experiment
-    p @observation
-    p @comment
+
     if @comment.save
       @observation.comments << @comment
       current_user.comments << @comment
