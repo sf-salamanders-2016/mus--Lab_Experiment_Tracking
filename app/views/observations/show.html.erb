@@ -17,6 +17,13 @@ Update status
   <p>
     Comments
   </p>
+
+  <% @observation.comments.each do |comment| %>
+    <li>
+      <%= comment.text %>
+    </li>
+  <% end %>
+
   <p><%= link_to "Add comment", new_user_experiment_observation_comment_path(current_user, @experiment, @observation) %></p>
 
 

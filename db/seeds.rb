@@ -1,10 +1,10 @@
 require 'faker'
 
 User.delete_all
+# creating admin all
 Experiment.delete_all
 Observation.delete_all
-
-# creating admin account
+# account
 User.create(
     username: 'stewart',
     email: 'stewart@stewart.com',
