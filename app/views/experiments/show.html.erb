@@ -1,7 +1,53 @@
-<h1>Show page for <%= @experiment.title %></h1>
+<h1><%= @experiment.title %></h1>
+<% @experiment.users.each do |user| %>
+  Current staff working on experiment:
+  <%= user.username %>
+<% end %>
 
-<li>Project Admin: <%= @experiment.project_admin.username %></li>
+<ul>
+  <li>
+    Hypothesis:
+    <%= @experiment.hypothesis %>
+  </li>
+  <li>
+    Summary:
+    <%= @experiment.summary %>
+  </li>
+  <li>
+    Body:
+    <%= @experiment.body %>
+  </li>
+</ul>
+
+<% if @experiment.users.find(current_user.id) %>
+  <%= link_to "Write Observation", new_user_experiment_observation_path(current_user,@experiment) %>
+<% else %>
+  <%= link_to "Apply to work on experiment", user_experiment_applications_path(current_user, @experiment) %>
+<% end %>
+<br>
+<% if @experiment.project_admin == current_user %>
+  Pending applications
+
+  show a list of all users that filled out application form (in other views)
+
+  when button is clicked, they are added as a member of this experiment
+
+  experiment.users << user <---- do this shit somehow when the global admin presses the approve button
+
+<% end %>
+<br>
+<br>
+
+Observations
+<br>
+<br>
+<% @experiment.observations.each do |observation| %>
+  <li>
+    <%= link_to observation.title, user_experiment_observation_path(current_user, @experiment, observation) %>
+  </li>
+<% end %>
+
+<%= link_to "Go back", user_experiments_path(current_user) %>
 
 
 
-<%= link_to "Experiments", experiments_path %>

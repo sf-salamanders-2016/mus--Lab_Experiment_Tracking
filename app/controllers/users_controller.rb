@@ -1,27 +1,28 @@
 class UsersController < ApplicationController
 
-  def index
-  end
+  # def index
+  # end
 
-  def new
-  end
+  # def new
+  # end
 
   def show
     @user = User.find(params[:id])
+    redirect_to user_experiments_path(@user)
   end
 
-  def edit
-  end
+  # def edit
+  # end
 
-  def update
-  end
+  # def update
+  # end
 
-  def destroy
-  end
+  # def destroy
+  # end
 
-  private
+  # private
 
-  def user_params
-    params.require(:user).permit(:username, :password, :email)
-  end
+  # def user_params
+  #   params.require(:user).permit(:username, :password, :email)
+  # end
 end

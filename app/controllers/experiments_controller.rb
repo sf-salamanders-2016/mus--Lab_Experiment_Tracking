@@ -1,28 +1,33 @@
 class ExperimentsController < ApplicationController
 
+
   def index
     @experiments = Experiment.all
   end
 
   def new
-    @experiment = Experiment.new()
+    @experiment = current_user.experiments.new()
+  end
+
+  def create
+    @experiment = current_user.experiments.new(experiment_params)
+
+    if @experiment.save
+      current_user.experiments << @experiment
+      redirect_to user_experiments_path(current_user)
+    else
+      render 'experiments/new'
+    end
   end
 
   def show
     @experiment = Experiment.find(params[:id])
   end
 
-  def create
-    p experiment_params
-    @experiment = Experiment.new(experiment_params)
-    p '***************'
-    p @experiment
+  ## add post route for application
 
-    if @experiment.save
-      redirect_to @experiment
-    else
-      render 'experiments/new'
-    end
+  def application
+
   end
 
 
