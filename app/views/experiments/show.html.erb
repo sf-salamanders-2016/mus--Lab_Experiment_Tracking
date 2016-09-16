@@ -1,8 +1,11 @@
 <h1><%= @experiment.title %></h1>
-<% @experiment.users.each do |user| %>
-  Current staff working on experiment:
-  <%= user.username %>
+
+<p>Current staff working on experiment:</p>
+<% @teams.each do |user| %>
+  <%= user.user.username %></br>
 <% end %>
+
+
 
 <br>
 <% if current_user.global_admin? == true && @experiment.approved? != true %>
