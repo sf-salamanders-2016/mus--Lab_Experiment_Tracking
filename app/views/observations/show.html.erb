@@ -1,3 +1,25 @@
 <h1><%= @observation.text %></h1>
 
+Update status
+
+  <p>
+  <%= form_for @observation, url: {action: "update"} do |f| %>
+    <%= f.label :status, "No Issues", :status => 'green' %>
+    <%= f.radio_button :status, 'green' %>
+    <%= f.label :status, "Minor Issue(s)", :status => 'yellow' %>
+    <%= f.radio_button :status, 'yellow' %>
+    <%= f.label :status, "Needs Attention", :status => 'red' %>
+    <%= f.radio_button :status, 'red' %>
+    <%= f.submit %>
+  <% end %>
+  </p>
+
+  <p>
+    Comments
+  </p>
+  <p><%= link_to "Add comment", new_user_experiment_observation_comment_path(current_user, @experiment, @observation) %></p>
+
+
+
+
 <%= link_to "Back", user_experiment_path(current_user, @experiment) %>
