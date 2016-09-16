@@ -31,7 +31,11 @@ class ExperimentsController < ApplicationController
   end
 
   def application
-    @experiment = Experiment.find(params[:experiment_id])
+    experiment = Experiment.find(params[:experiment_id])
+    user = User.find(params[:user_id])
+    Team.create(user_id: user.id, experiment_id: experiment.id)
+    redirect_to user_experiment_path(current_user)
+
   end
 
 
