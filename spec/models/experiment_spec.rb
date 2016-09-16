@@ -1,10 +1,15 @@
- let (:experiment) { Experiment.create(project_admin_id: 1, title: "Mouse Hunt", hypothesis: "Finds cheese and eats cheese", summary: "Placing mouse in experimental maze with a prize of cheese", body: "The mouse is allergic to cheese and did not move") }
+require 'rails_helper'
 
- describe "experiments" do
+RSpec.describe Experiment, :type => :model do
+  let (:user) { User.create()}
+  let (:observation) { Observation.create()}
+  let (:experiment) { Experiment.create(project_admin_id: user.id, title: "Mouse Hunt", hypothesis: "Finds cheese and eats cheese", summary: "Placing mouse in experimental maze with a prize of cheese", body: "The mouse is allergic to cheese and did not move") }
+
+  describe "experiments" do
     describe "validations" do
 
       it "has a project admin" do
-        expect(experiment.project_admin_id).to eq 1
+        expect(experiment.project_admin_id).to eq (user.id)
       end
 
       it "has a title" do
@@ -23,4 +28,15 @@
         expect(experiment.body).to eq ('The mouse is allergic to cheese and did not move')
       end
     end
+
+    describe "experiment associations" do
+      it "should have an project_admin associated" do
+        Experiment.reflect_on_association(:user).macro.should eq(:belongs_to)
+      end
+
+      it "should have an observation associated" do
+        Experiment.reflect_on_association(:observation).macro.should eq(:has_many)
+      end
+    end
   end
+end
