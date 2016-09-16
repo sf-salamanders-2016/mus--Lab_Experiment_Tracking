@@ -13,7 +13,7 @@ class ExperimentsController < ApplicationController
     @experiment = current_user.experiments.new(experiment_params)
 
     if @experiment.save
-      current_user.experiments << @experiment
+      Team.create(user_id: current_user.id, experiment_id: @experiment.id, approved?: true)
       redirect_to user_experiments_path(current_user)
     else
       render 'experiments/new'
@@ -22,6 +22,8 @@ class ExperimentsController < ApplicationController
 
   def show
     @experiment = Experiment.find(params[:id])
+    @user = User.find(params[:user_id])
+    @teams = Team.where(user_id: @user.id, experiment_id: @experiment.id, approved?: true)
   end
 
   def approval
@@ -34,8 +36,7 @@ class ExperimentsController < ApplicationController
     experiment = Experiment.find(params[:experiment_id])
     user = User.find(params[:user_id])
     Team.create(user_id: user.id, experiment_id: experiment.id)
-    redirect_to user_experiment_path(current_user)
-
+    redirect_to user_experiment_path(current_user, experiment)
   end
 
 
