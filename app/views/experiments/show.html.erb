@@ -6,6 +6,18 @@
 <% end %>
 
 <ul style="list-style: none;">
+
+<br>
+<% if current_user.global_admin? == true && @experiment.approved? != true %>
+  <%= form_for @experiment, url: user_experiment_approval_path(current_user, @experiment) do |f| %>
+  <%= f.hidden_field :approved?, :value => true %>
+  <%= f.submit value: "Approve experiment" %>
+<% end %>
+
+<% end %>
+<br>
+
+<ul>
   <li>
     Hypothesis:
     <%= @experiment.hypothesis %>
@@ -45,10 +57,38 @@
 Observations
 <br>
 <br>
+
+<style>
+  #red {
+    color: red;
+  }
+
+  #green {
+    color: green;
+  }
+
+  #yellow {
+    color: yellow;
+  }
+
+</style>
+
 <% @experiment.observations.each do |observation| %>
-  <li>
-    <%= link_to observation.title, user_experiment_observation_path(current_user, @experiment, observation) %>
-  </li>
+    <% if observation.status == 'green' %>
+      <li id="green">
+        <%= link_to observation.title, user_experiment_observation_path(current_user, @experiment, observation) %>
+      </li>
+    <% end %>
+    <% if observation.status == 'yellow' %>
+      <li id="yellow">
+        <%= link_to observation.title, user_experiment_observation_path(current_user, @experiment, observation) %>
+      </li>
+    <% end %>
+    <% if observation.status == 'red' %>
+      <li id="red">
+        <%= link_to observation.title, user_experiment_observation_path(current_user, @experiment, observation) %>
+      </li>
+    <% end %>
 <% end %>
 
 <%= link_to "Go back", user_experiments_path(current_user) %>

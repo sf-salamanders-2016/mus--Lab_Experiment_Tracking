@@ -12,7 +12,10 @@ Rails.application.routes.draw do
   resources :users do
     resources :experiments do
         get 'applications', to: 'experiments#application'
-        resources :observations, except: [:index]
+        patch 'approval', to: 'experiments#approval'
+        resources :observations, except: [:index] do 
+          resources :comments 
+        end
     end
   end
 

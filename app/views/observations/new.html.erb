@@ -12,6 +12,16 @@ Enter Observation for <%= @experiment.title %>
   </p>
 
   <p>
+
+  <%= f.label :status, "No Issues", :status => 'green' %>
+  <%= f.radio_button :status, 'green' %>
+  <%= f.label :status, "Minor Issue(s)", :status => 'yellow' %>
+  <%= f.radio_button :status, 'yellow' %>
+  <%= f.label :status, "Needs Attention", :status => 'red' %>
+  <%= f.radio_button :status, 'red' %>
+  </p>
+
+  <p>
     <%= f.submit %>
   </p>
 <% end %>

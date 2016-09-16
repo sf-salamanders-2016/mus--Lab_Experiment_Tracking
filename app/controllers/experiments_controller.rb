@@ -24,7 +24,11 @@ class ExperimentsController < ApplicationController
     @experiment = Experiment.find(params[:id])
   end
 
-  ## add post route for application
+  def approval
+    @experiment = Experiment.find(params[:experiment_id])
+    @experiment.update_attributes(approved?: true)
+    redirect_to user_experiments_path(current_user)
+  end
 
   def application
     @experiment = Experiment.find(params[:experiment_id])
@@ -35,7 +39,7 @@ class ExperimentsController < ApplicationController
 
 
   def experiment_params
-    params.require(:experiment).permit(:project_admin_id, :title, :hypothesis, :summary, :body)
+    params.require(:experiment).permit(:approved?, :project_admin_id, :title, :hypothesis, :summary, :body)
   end
 
 end

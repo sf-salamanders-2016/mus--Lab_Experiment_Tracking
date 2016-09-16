@@ -60,5 +60,6 @@ end
 
 experiments.each do |experiment|
   user = User.order("RANDOM()").first
-  user.experiments << experiment
+  experiment = Experiment.order("RANDOM()").first
+  Team.create(user_id: user.id, experiment_id: experiment.id)
 end
