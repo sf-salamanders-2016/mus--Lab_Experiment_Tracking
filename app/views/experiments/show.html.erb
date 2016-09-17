@@ -37,27 +37,21 @@
 </br></br>
 
 <% if @experiment.project_admin_id != current_user.id %>
-  <% if @teams.each {|user| user.user.id == current_user.id} %>
+  <% if @teams.any? {|user| user.user.id == current_user.id} %>
     <%= link_to "Write Observation", new_user_experiment_observation_path(current_user,@experiment) %>
-  <% elsif @application.each {|applicant| applicant.user.id == current_user.id} %>
+  <% elsif @application.any? {|applicant| applicant.user.id == current_user.id} %>
     <p> Application pending </p>
   <% else %>
     <%= link_to "Apply to work on experiment", user_experiment_applications_path(current_user, @experiment) %>
   <% end %>
 <% else %>
-  Pending applications
 
-  show a list of all users that filled out application form (in other views)
+  <% @application.each do |applicant| %>
+      <%= link_to "#{applicant.user.username}", user_experiment_approval_path(applicant.user.id, @experiment) %> </br>
+  <% end %>
 
-  when button is clicked, they are added as a member of this experiment
-
-  experiment.users << user <---- do this shit somehow when the global admin presses the approve button
 <% end %>
 
-<br>
-<br>
-
-Observations
 <br>
 <br>
 

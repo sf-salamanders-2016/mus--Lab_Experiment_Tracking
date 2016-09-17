@@ -28,9 +28,11 @@ class ExperimentsController < ApplicationController
   end
 
   def approval
+    @user = User.find(params[:user_id])
     @experiment = Experiment.find(params[:experiment_id])
-    @experiment.update_attributes(approved?: true)
-    redirect_to user_experiments_path(current_user)
+    @team = Team.create(user_id: @user.id, experiment_id: @experiment.id)
+    @team.update_attributes(approved?: true)
+    redirect_to user_experiment_path(current_user, @experiment)
   end
 
   def application

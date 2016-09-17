@@ -58,7 +58,7 @@
               <% @experiments.each do |experiment| %>
                 <% if experiment.approved? != true %>
                   <li>
-                    <%= experiment.title %>
+                    <%= link_to experiment.title, user_experiment_path(current_user, experiment) %>
                   </li>
                 <% end %>
               <% end %>
