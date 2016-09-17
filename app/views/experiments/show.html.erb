@@ -19,7 +19,7 @@
 <% end %>
 <br>
 
-<ul>
+<ul style="list-style: none;">
   <li>
     Hypothesis:
     <%= @experiment.hypothesis %>
@@ -34,16 +34,17 @@
   </li>
 </ul>
 
+</br></br>
 
-<% @experiment.users.each do |user| %>
-  <% if user.id == current_user.id %>
+<% if @experiment.project_admin_id != current_user.id %>
+  <% if @teams.each {|user| user.user.id == current_user.id} %>
     <%= link_to "Write Observation", new_user_experiment_observation_path(current_user,@experiment) %>
+  <% elsif @application.each {|applicant| applicant.user.id == current_user.id} %>
+    <p> Application pending </p>
   <% else %>
     <%= link_to "Apply to work on experiment", user_experiment_applications_path(current_user, @experiment) %>
   <% end %>
-<% end %>
-<br>
-<% if @experiment.project_admin == current_user %>
+<% else %>
   Pending applications
 
   show a list of all users that filled out application form (in other views)
@@ -51,8 +52,8 @@
   when button is clicked, they are added as a member of this experiment
 
   experiment.users << user <---- do this shit somehow when the global admin presses the approve button
-
 <% end %>
+
 <br>
 <br>
 

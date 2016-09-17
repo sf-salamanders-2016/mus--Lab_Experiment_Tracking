@@ -25,13 +25,18 @@ users = User.all
 user = User.order("RANDOM()").first
 
 30.times do
-  Experiment.create(
+  experiment = Experiment.create(
     approved?: true,
     title: Faker::Lorem.sentence,
     hypothesis: Faker::Lorem.sentence,
     summary: Faker::Lorem.sentence,
     body: Faker::Lorem.sentence,
     project_admin_id: user.id
+    )
+  Team.create(
+    user_id: user.id,
+    experiment_id: experiment.id,
+    approved?: true
     )
 end
 

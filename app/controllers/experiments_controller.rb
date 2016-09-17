@@ -23,7 +23,8 @@ class ExperimentsController < ApplicationController
   def show
     @experiment = Experiment.find(params[:id])
     @user = User.find(params[:user_id])
-    @teams = Team.where(user_id: @user.id, experiment_id: @experiment.id, approved?: true)
+    @teams = Team.where(experiment_id: @experiment.id, approved?: true)
+    @application = Team.where(experiment_id: @experiment.id, approved?: false)
   end
 
   def approval
