@@ -11,6 +11,17 @@ class UsersController < ApplicationController
     redirect_to user_experiments_path(@user)
   end
 
+  def create
+    p '**************'
+    p user_params
+    @user = User.new(user_params)
+    if @user.save
+      redirect_to user_experiments_path(@user)
+    else
+      render ':devise/registrations/new'
+    end
+  end
+
   # def edit
   # end
 
@@ -22,7 +33,7 @@ class UsersController < ApplicationController
 
   # private
 
-  # def user_params
-  #   params.require(:user).permit(:username, :password, :email)
-  # end
+  def user_params
+    params.require(:user).permit(:username, :password, :email)
+  end
 end
